@@ -20,12 +20,18 @@ public class NetworkTableTest {
 		double[] angle, x1, y1, x2, y2;
 		double[] networkTableDefault = new double[] { -1.0 };
 
-		// Goals.  lastGoal = last used index in array.
+		// Goals
 		GoalOnScreen[] goal = new GoalOnScreen[10];
-		int lastGoal = -1;
+		int numGoals = -1;
+		GoalOnScreen gFound = new GoalOnScreen();
 		
 		int i, j;
 	
+		// Initialize goal array
+		for (i=0;i<10;i++) {
+			goal[i] = new GoalOnScreen();
+		}
+
 		NetworkTable.setClientMode();
 //		NetworkTable.setIPAddress("192.168.1.64");
 		table = NetworkTable.getTable("GRIP/myLinesReport");
@@ -54,18 +60,30 @@ public class NetworkTableTest {
 			System.out.println("angle array length = " + angle.length);
 			System.out.println("angle[0] value = " + angle[0]);
 			
-			lastGoal = findGoals(angle, x1, y1, x2, y2, goal);
-			System.out.println("Goals found = " + lastGoal);
-			for (j=0; j<lastGoal; j++) {
+			numGoals = findGoals(angle, x1, y1, x2, y2, goal);
+			selectGoal(goal, numGoals, gFound);
+			
+			System.out.println("Goals found = " + numGoals);
+			for (j=0; j<numGoals; j++) {
 				System.out.println(goal[j]);
 			}
 		}
 	}
 	
+	/**
+	 * Finds all U-shaped goals in the scene.
+	 * @param angle
+	 * @param x1
+	 * @param y1
+	 * @param x2
+	 * @param y2
+	 * @param goal Array of goals found
+	 * @return Number of goals found
+	 */
 	public static int findGoals(double[] angle, double[] x1, double[] y1, 
 			double[] x2, double[] y2, GoalOnScreen[] goal) {
 
-		int goalFound = -1;
+		int curGoal = -1;
 		int i, j;
 		double ty, tx;
 		double tol = 25.1;  // points must be within 5 pixels to be "adjacent"
@@ -133,13 +151,50 @@ public class NetworkTableTest {
 				}
 				
 				if (foundLeft && foundRight) {
-					goalFound++;
-					gVert.copyGoal(goal[goalFound]);
+					curGoal++;
+					gVert.copyGoal(goal[curGoal]);
 				}
 			}
 		}
 		
-		return goalFound;
+		return curGoal+1;
+	}
+	
+	/**
+	 * Find the interior of the closest goal on the screen.
+	 * @param goal Array of goals
+	 * @param numGoals Number of goals in array
+	 * @param foundGoal Closest goal interior (initialize this object before calling)
+	 */
+	public static void selectGoal(GoalOnScreen[] goal, int numGoals, GoalOnScreen foundGoal) {
+		int i, largestGoal, interiorGoal;
+		double size;
+		
+		// Find largest goal
+		size = 0;
+		largestGoal = 0;
+		for (i=0; i<numGoals; i++) {
+			if ( (goal[i].botR.x - goal[i].botL.x) > size) {
+				size = goal[i].botR.x - goal[i].botL.x;
+				largestGoal = i;
+			}
+		}
+		
+		interiorGoal = -1;
+		// Find interior, if it was detected
+		for (i=0; i<numGoals; i++) {
+			if ( (goal[i].botL.x > goal[largestGoal].botL.x) &&
+					(goal[i].botR.x < goal[largestGoal].botR.x) &&
+					(goal[i].botL.y > goal[largestGoal].botL.y) ) {
+				interiorGoal = i;
+			}
+		}
+
+		if (interiorGoal==-1) {
+			goal[largestGoal].copyGoal(foundGoal);
+		} else {
+			goal[interiorGoal].copyGoal(foundGoal);
+		}
 	}
 	
 	public static double sqr(double x) {
