@@ -1,6 +1,12 @@
 
 import java.util.*;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 public class NetworkTableTest {
@@ -12,6 +18,47 @@ public class NetworkTableTest {
 	3. Run C:\Users\team\wpilib\tools\OutlineViewer.jar.  Input your IP address and 
 	     click "Start Server".
 */	
+	
+//	public class Canvas extends JComponent{
+//
+//		public void paintIt() {
+//		    repaint();
+//		}
+//
+//		@Override
+//		protected void paintComponent(Graphics g) {
+//		    super.paintComponent(g);
+//		    for (Line line : lines) {
+//		        g.setColor(line.color);
+//		        g.drawLine(line.x1, line.y1, line.x2, line.y2);
+//		    }
+//		}
+//	
+//
+//	public void drawAll(double[] x1, double[] y1, 
+//			double[] x2, double[] y2, GoalOnScreen[] goal, int numGoals, GoalOnScreen gFound) {
+//		JFrame testFrame = new JFrame();
+//	    testFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//	    final Canvas comp = new Canvas();
+//	    comp.setPreferredSize(new Dimension(320, 200));
+//	    testFrame.getContentPane().add(comp, BorderLayout.CENTER);
+//	    JPanel buttonsPanel = new JPanel();
+//	    JButton clearButton = new JButton("Paint");
+//	    buttonsPanel.add(clearButton);
+//	    testFrame.getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
+//	    clearButton.addActionListener(new ActionListener() {
+//
+//	        @Override
+//	        public void actionPerformed(ActionEvent e) {
+//	            comp.paintIt();
+//	        }
+//	    });
+//	    testFrame.pack();
+//	    testFrame.setVisible(true);
+//
+//	}
+//	}
+
 	public static void main(String[] args) {
 
 		// NetworkTable data
@@ -62,6 +109,9 @@ public class NetworkTableTest {
 			
 			numGoals = findGoals(angle, x1, y1, x2, y2, goal);
 			selectGoal(goal, numGoals, gFound);
+			
+		    final Canvas comp = new Canvas();
+			comp.drawAll(x1, y1, x2, y2, goal, numGoals, gFound);
 			
 			System.out.println("Goals found = " + numGoals);
 			for (j=0; j<numGoals; j++) {
@@ -185,7 +235,7 @@ public class NetworkTableTest {
 		for (i=0; i<numGoals; i++) {
 			if ( (goal[i].botL.x > goal[largestGoal].botL.x) &&
 					(goal[i].botR.x < goal[largestGoal].botR.x) &&
-					(goal[i].botL.y > goal[largestGoal].botL.y) ) {
+					(goal[i].botL.y < goal[largestGoal].botL.y) ) {
 				interiorGoal = i;
 			}
 		}
@@ -200,4 +250,5 @@ public class NetworkTableTest {
 	public static double sqr(double x) {
 		return x*x;
 	}
+	
 }
