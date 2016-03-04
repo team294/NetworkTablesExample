@@ -19,45 +19,7 @@ public class NetworkTableTest {
 	     click "Start Server".
 */	
 	
-//	public class Canvas extends JComponent{
-//
-//		public void paintIt() {
-//		    repaint();
-//		}
-//
-//		@Override
-//		protected void paintComponent(Graphics g) {
-//		    super.paintComponent(g);
-//		    for (Line line : lines) {
-//		        g.setColor(line.color);
-//		        g.drawLine(line.x1, line.y1, line.x2, line.y2);
-//		    }
-//		}
-//	
-//
-//	public void drawAll(double[] x1, double[] y1, 
-//			double[] x2, double[] y2, GoalOnScreen[] goal, int numGoals, GoalOnScreen gFound) {
-//		JFrame testFrame = new JFrame();
-//	    testFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//	    final Canvas comp = new Canvas();
-//	    comp.setPreferredSize(new Dimension(320, 200));
-//	    testFrame.getContentPane().add(comp, BorderLayout.CENTER);
-//	    JPanel buttonsPanel = new JPanel();
-//	    JButton clearButton = new JButton("Paint");
-//	    buttonsPanel.add(clearButton);
-//	    testFrame.getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
-//	    clearButton.addActionListener(new ActionListener() {
-//
-//	        @Override
-//	        public void actionPerformed(ActionEvent e) {
-//	            comp.paintIt();
-//	        }
-//	    });
-//	    testFrame.pack();
-//	    testFrame.setVisible(true);
-//
-//	}
-//	}
+	public final static int maxGoals = 10;
 
 	public static void main(String[] args) {
 
@@ -68,9 +30,12 @@ public class NetworkTableTest {
 		double[] networkTableDefault = new double[] { -1.0 };
 
 		// Goals
-		GoalOnScreen[] goal = new GoalOnScreen[10];
+		GoalOnScreen[] goal = new GoalOnScreen[maxGoals];
 		int numGoals = -1;
 		GoalOnScreen gFound = new GoalOnScreen();
+		
+		// Create output window
+	    final Canvas comp = new Canvas();
 		
 		int i, j;
 	
@@ -85,7 +50,7 @@ public class NetworkTableTest {
 
 		System.out.println(table.toString());
 
-		for (i=0;i<1;i++) {
+		for (i=0;i<10;i++) {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -110,8 +75,8 @@ public class NetworkTableTest {
 			numGoals = findGoals(angle, x1, y1, x2, y2, goal);
 			selectGoal(goal, numGoals, gFound);
 			
-		    final Canvas comp = new Canvas();
 			comp.drawAll(x1, y1, x2, y2, goal, numGoals, gFound);
+			comp.paintIt();
 			
 			System.out.println("Goals found = " + numGoals);
 			for (j=0; j<numGoals; j++) {
@@ -155,7 +120,7 @@ public class NetworkTableTest {
 		}
 		
 		// loop through line segments looking for horizontal pieces
-		for (i=0; i<angle.length; i++) {
+		for (i=0; (i<angle.length)&&(curGoal<maxGoals); i++) {
 			
 			// is this a horizontal piece?
 			if ( (angle[i]<45 && angle[i]>-45) || angle[i]>135 || angle[i]<-135 ) {

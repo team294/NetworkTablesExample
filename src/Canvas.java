@@ -17,8 +17,44 @@ public class Canvas extends JComponent{
 	int numGoals;
 	GoalOnScreen gFound;
 	
+	public Canvas() {
+		super();
+		
+		JFrame testFrame = new JFrame();
+	    testFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	    setPreferredSize(new Dimension(640, 480));
+	    testFrame.getContentPane().add(this, BorderLayout.CENTER);
+	    JPanel buttonsPanel = new JPanel();
+	    JButton clearButton = new JButton("Paint");
+	    buttonsPanel.add(clearButton);
+	    testFrame.getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
+	    clearButton.addActionListener(new ActionListener() {
+
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            paintIt();
+	        }
+	    });
+	    testFrame.pack();
+	    testFrame.setVisible(true);
+	    repaint();
+	}
+	
 	public void paintIt() {
 	    repaint();
+	}
+
+
+	public void drawAll(double[] x1, double[] y1, 
+			double[] x2, double[] y2, GoalOnScreen[] goal, int numGoals, GoalOnScreen gFound) {
+		this.x1 = x1;
+		this.y1 = y1;
+		this.x2 = x2;
+		this.y2 = y2;
+		this.goal = goal;
+		this.numGoals = numGoals;
+		this.gFound = gFound;
+		
 	}
 
 	@Override
@@ -45,35 +81,4 @@ public class Canvas extends JComponent{
     	g.drawLine((int)gFound.topR.x, (int)gFound.topR.y, (int)gFound.botR.x, (int)gFound.botR.y);
 	    
 	}
-	
-
-	public void drawAll(double[] x1, double[] y1, 
-			double[] x2, double[] y2, GoalOnScreen[] goal, int numGoals, GoalOnScreen gFound) {
-		this.x1 = x1;
-		this.y1 = y1;
-		this.x2 = x2;
-		this.y2 = y2;
-		this.goal = goal;
-		this.numGoals = numGoals;
-		this.gFound = gFound;
-		
-		JFrame testFrame = new JFrame();
-	    testFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	    setPreferredSize(new Dimension(640, 480));
-	    testFrame.getContentPane().add(this, BorderLayout.CENTER);
-	    JPanel buttonsPanel = new JPanel();
-	    JButton clearButton = new JButton("Paint");
-	    buttonsPanel.add(clearButton);
-	    testFrame.getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
-	    clearButton.addActionListener(new ActionListener() {
-
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	            paintIt();
-	        }
-	    });
-	    testFrame.pack();
-	    testFrame.setVisible(true);
-	}
-
 }
