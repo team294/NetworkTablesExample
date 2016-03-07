@@ -37,6 +37,9 @@ public class NetworkTableTest {
 		// Create output window
 	    final Canvas comp = new Canvas();
 		
+	    // Goal in real space
+	    Goal goal = new Goal();
+	    
 		int i, j;
 	
 		// Initialize goal array
@@ -45,7 +48,8 @@ public class NetworkTableTest {
 		}
 
 		NetworkTable.setClientMode();
-//		NetworkTable.setIPAddress("192.168.1.64");
+		NetworkTable.setTeam(294);
+//		NetworkTable.setIPAddress("roborio-294-frc.local");
 		table = NetworkTable.getTable("GRIP/myLinesReport");
 
 		System.out.println(table.toString());
@@ -78,10 +82,14 @@ public class NetworkTableTest {
 			comp.drawAll(x1, y1, x2, y2, sGoal, numGoals, sGFound);
 			comp.paintIt();
 			
-			System.out.println("Goals found = " + numGoals);
-			for (j=0; j<numGoals; j++) {
-				System.out.println(sGoal[j]);
-			}
+			goal.calcGoal(sGFound, 42.0);
+			
+			System.out.println("Goals found = " + numGoals + "\n");
+			System.out.println("Main goal: " + sGFound + "\n");
+			System.out.println("Main goal:  Dist = " + goal.dAvg + ", angle = " + goal.betaL + ", width = " + goal.widthL + "\n");
+//			for (j=0; j<numGoals; j++) {
+//				System.out.println(sGoal[j] + "\n");
+//			}
 		}
 	}
 	

@@ -19,7 +19,7 @@ public class GoalOnScreen {
 	}
 	
 	public String toString() {
-		return "TopL: " + topL + "/nBotL: " + botL + "/nTopR: " + topR + "/nBotR: " + botR;
+		return "TopL: " + topL + "\nBotL: " + botL + "\nTopR: " + topR + "\nBotR: " + botR;
 	}
 	
 	private static double sqr(double x) {
@@ -42,7 +42,7 @@ public class GoalOnScreen {
 		int curGoal = -1;
 		int i, j;
 		double ty, tx;
-		double tol = 25.1;  // points must be within 5 pixels to be "adjacent"
+		double tol = 9.1;  // points must be within 3 pixels to be "adjacent"
 		double curLTol, curRTol;
 		GoalOnScreen gHoriz = new GoalOnScreen();
 		GoalOnScreen gVert = new GoalOnScreen();
