@@ -86,7 +86,7 @@ public class NetworkTableTest {
 			
 //			System.out.println("Goals found = " + numGoals + "\n");
 //			System.out.println("Main goal: " + sGFound + "\n");
-//			System.out.println("Main goal:  Dist = " + goal.dAvg + ", angle = " + goal.betaL + ", width = " + goal.widthL + "\n");
+			System.out.println("Main goal:  Dist = " + goal.dAvg + ", angle = " + goal.betaL + ", width = " + goal.widthL + "\n");
 //			for (j=0; j<numGoals; j++) {
 //				System.out.println(sGoal[j] + "\n");
 //			}

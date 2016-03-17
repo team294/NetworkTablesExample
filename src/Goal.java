@@ -9,8 +9,8 @@ public class Goal {
 	static final double cameraYRatio = cameraXRatio*240.0/320.0;  	// SY/Sz
 //	static final double cameraXRatio = 18.8/19.25;  	// Sx/Sz (1/2 Sx)
 //	static final double cameraYRatio = 13.25/19.25;  	// SY/Sz (1/2 Sy)
-	static final double cameraXHalfRes = 320/2;		// Resolution
-	static final double cameraYHalfRes = 240/2;		// Resolution
+	static final double cameraXHalfRes = 640/2;		// Resolution
+	static final double cameraYHalfRes = 480/2;		// Resolution
 	
 	// Camera
 	double angCamera;	//Camera angle, in radians.  0 = horizontal, pi/2 = vertical
