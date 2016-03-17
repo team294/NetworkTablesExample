@@ -48,15 +48,15 @@ public class NetworkTableTest {
 		}
 
 		NetworkTable.setClientMode();
-		NetworkTable.setTeam(294);
-//		NetworkTable.setIPAddress("roborio-294-frc.local");
+//		NetworkTable.setTeam(294);		// Uncomment this to use camera streamed from roborio
+//		NetworkTable.setIPAddress("roborio-294-frc.local");   // This doesn't work
 		table = NetworkTable.getTable("GRIP/myLinesReport");
 
 		System.out.println(table.toString());
 
-		for (i=0;i<10;i++) {
+		for (i=0;i<100;i++) {
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -64,8 +64,8 @@ public class NetworkTableTest {
 			
 			keys = table.getKeys();
 			
-			System.out.println("Number of keys = " + keys.size());
-			System.out.println("Keys = " + keys);
+//			System.out.println("Number of keys = " + keys.size());
+//			System.out.println("Keys = " + keys);
 						
 			angle = table.getNumberArray("angle", networkTableDefault );
 			x1 = table.getNumberArray("x1", networkTableDefault );
@@ -73,8 +73,8 @@ public class NetworkTableTest {
 			x2 = table.getNumberArray("x2", networkTableDefault );
 			y2 = table.getNumberArray("y2", networkTableDefault );
 			
-			System.out.println("angle array length = " + angle.length);
-			System.out.println("angle[0] value = " + angle[0]);
+//			System.out.println("angle array length = " + angle.length);
+//			System.out.println("angle[0] value = " + angle[0]);
 			
 			numGoals = GoalOnScreen.findGoals(angle, x1, y1, x2, y2, sGoal);
 			GoalOnScreen.selectGoal(sGoal, numGoals, sGFound);
@@ -84,9 +84,9 @@ public class NetworkTableTest {
 			
 			goal.calcGoal(sGFound, 42.0);
 			
-			System.out.println("Goals found = " + numGoals + "\n");
-			System.out.println("Main goal: " + sGFound + "\n");
-			System.out.println("Main goal:  Dist = " + goal.dAvg + ", angle = " + goal.betaL + ", width = " + goal.widthL + "\n");
+//			System.out.println("Goals found = " + numGoals + "\n");
+//			System.out.println("Main goal: " + sGFound + "\n");
+//			System.out.println("Main goal:  Dist = " + goal.dAvg + ", angle = " + goal.betaL + ", width = " + goal.widthL + "\n");
 //			for (j=0; j<numGoals; j++) {
 //				System.out.println(sGoal[j] + "\n");
 //			}
