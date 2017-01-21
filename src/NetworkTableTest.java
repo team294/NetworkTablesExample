@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 public class NetworkTableTest {
 	
 /* Before running this program:
-	1. Run GRIP, including a "Publish LinesReport" that has Name "myLinesReport"
+	1. Run GRIP, including a "Publish Contours Report" that has Name "myContoursReport"
 	2. Start menu -> run "CMD", then type "ipconfig" at the prompt.  Find "IPv4 Address" 
 	     and put it in the setIPAddress command below.
 	3. Run C:\Users\team\wpilib\tools\OutlineViewer.jar.  Input your IP address and 
@@ -20,8 +20,8 @@ public class NetworkTableTest {
 		NetworkTable table;
 	
 		NetworkTable.setClientMode();
-		NetworkTable.setIPAddress("192.168.1.64");
-		table = NetworkTable.getTable("GRIP/myLinesReport");
+		NetworkTable.setIPAddress("192.168.1.67");
+		table = NetworkTable.getTable("GRIP/myContoursReport");
 
 		myPrint(table.toString());
 
