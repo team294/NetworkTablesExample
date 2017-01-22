@@ -20,7 +20,7 @@ public class NetworkTableTest {
 		NetworkTable table;
 	
 		NetworkTable.setClientMode();
-		NetworkTable.setIPAddress("192.168.1.67");
+		NetworkTable.setIPAddress("127.0.0.1");
 		table = NetworkTable.getTable("GRIP/myContoursReport");
 
 		myPrint(table.toString());
